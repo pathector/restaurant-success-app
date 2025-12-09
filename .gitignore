@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# data and artifacts live in GCS; keep placeholders only
+/data/
+!data/README.md
+!data/processed/
+!data/processed/.gitkeep
+
+# model artifacts stay out of git
+models/
