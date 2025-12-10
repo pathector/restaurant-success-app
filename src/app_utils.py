@@ -52,8 +52,9 @@ def list_available_cities() -> List[str]:
     for path in files:
         # Expected format: grid_concepts_zurich.parquet or grid_concepts_zurich_part1.parquet
         name = path.stem.replace("grid_concepts_", "")
-        name = re.sub(r"_part\\d+$", "", name)
+        name = re.sub(r"_part\d+$", "", name, flags=re.IGNORECASE)
         name = name.replace("_", " ").title()
+        name = re.sub(r"\s+Part\d*$", "", name, flags=re.IGNORECASE)
         cities.append(name)
     # Deduplicate while preserving sorted order
     return sorted(list(dict.fromkeys(cities)))
