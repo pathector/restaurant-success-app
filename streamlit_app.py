@@ -32,10 +32,12 @@ st.set_page_config(
 st.sidebar.title("Configuration")
 available_cities = app_utils.list_available_cities()
 options = ["All"] + available_cities
-default_index = 0 if len(options) <= 1 else 1
-selected_city = st.sidebar.selectbox("Select City", options, index=default_index)
-if len(options) == 1:
-    st.sidebar.warning("No cities found. Confirm data/processed is present (synced from GCS).")
+
+if len(options) <= 1:
+    st.sidebar.warning("No cities found. Please ensure data/processed is present (synced from GCS).")
+    selected_city = "All"
+else:
+    selected_city = st.sidebar.selectbox("Select City", options, index=1)
 
 # ---------------------------------------------------------------------------
 # Helper UI Functions
