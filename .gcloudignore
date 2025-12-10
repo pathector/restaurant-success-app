@@ -1,0 +1,11 @@
+# Use .gcloudignore to ensure data/processed is included in Cloud Build
+# Start from blank, then exclude only what we truly don't want.
+.gcloudignore
+.git
+.venv
+__pycache__/
+*.pyc
+.DS_Store
+
+# Do NOT exclude data/processed; it must be present in the build context
+# The download script fills it before builds.
