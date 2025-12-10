@@ -1,4 +1,5 @@
 import functools
+import re
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Union
 
@@ -49,11 +50,13 @@ def list_available_cities() -> List[str]:
     files = sorted(DATA_DIR.glob(GRID_CONCEPTS_GLOB))
     cities = []
     for path in files:
-        # Expected format: grid_concepts_zurich.parquet
+        # Expected format: grid_concepts_zurich.parquet or grid_concepts_zurich_part1.parquet
         name = path.stem.replace("grid_concepts_", "")
+        name = re.sub(r"_part\\d+$", "", name)
         name = name.replace("_", " ").title()
         cities.append(name)
-    return sorted(list(set(cities)))
+    # Deduplicate while preserving sorted order
+    return sorted(list(dict.fromkeys(cities)))
 
 def city_to_slug(city: str) -> str:
     return city.lower().replace(" ", "_")
